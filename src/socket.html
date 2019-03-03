@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    RED.nodes.registerType("streamlabs-socket", {
+      category: "StreamingTools",
+      color: "#37474f",
+      defaults: {
+        config: { type: "streamlabs-config" },
+        type_filter: { value: "" },
+      },
+      inputs: 0,
+      outputs: 1,
+      icon: "streamlabs-icon.png",
+      paletteLabel: "Socket",
+      label: function() {
+        return this.type || "Socket";
+      },
+      labelStyle: "streamlabs_node_label"
+    });
+  </script>
+  <style>
+    #palette_node_streamlabs-socket {
+      color: #fff;
+    }
+    .streamlabs_node_label {
+      fill: #fff;
+    }
+  </style>
+  <script type="text/html" data-template-name="streamlabs-socket">
+    <div class="form-row">
+        <label for="node-input-config"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-config">
+    </div>
+    <div class="form-row">
+          <label for="node-input-type_filter"><i class="icon-tag"></i> Type</label>
+          <input type="text" id="node-input-type_filter">
+    </div>
+  </script>
+  <script type="text/html" data-help-name="streamlabs-socket"></script>
+  

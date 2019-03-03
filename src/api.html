@@ -1,0 +1,55 @@
+<script type="text/javascript">
+    RED.nodes.registerType("streamlabs-api", {
+      category: "StreamingTools",
+      color: "#37474f",
+      defaults: {
+        config: { type: "streamlabs-config" },
+        method: { value: "GET" },
+        endpoint: { value: "" },
+        payload: { value: "" }
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "streamlabs-icon.png",
+      paletteLabel: "API",
+      label: function() {
+        return this.endpoint || "API";
+      },
+      labelStyle: "streamlabs_node_label"
+    });
+  </script>
+  <style>
+    #palette_node_streamlabs-api {
+      color: #fff;
+    }
+    .streamlabs_node_label {
+      fill: #fff;
+    }
+  </style>
+  <script type="text/html" data-template-name="streamlabs-api">
+    <div class="form-row">
+        <label for="node-input-config"><i class="icon-tag"></i> Config</label>
+        <input type="text" id="node-input-config">
+    </div>
+    <div class="form-row">
+          <label for="node-input-method"><i class="icon-tag"></i> Method</label>
+          <select id="node-input-method">
+              <option>GET</option>
+              <option>POST</option>
+              <option>PUT</option>
+          </select>
+    </div>
+    Can be overriden by msg.method
+    <div class="form-row">
+        <label for="node-input-endpoint"><i class="icon-tag"></i> Endpoint</label>
+        <input type="text" id="node-input-endpoint">
+    </div>
+    Can be overriden by msg.topic
+    <div class="form-row">
+          <label for="node-input-payload"><i class="icon-tag"></i> Data</label>
+          <input type="text" id="node-input-payload">
+    </div>
+    Can be overriden by msg.payload
+  </script>
+  <script type="text/html" data-help-name="streamlabs-api"></script>
+  
