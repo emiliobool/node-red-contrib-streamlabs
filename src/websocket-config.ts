@@ -23,6 +23,7 @@ export interface StreamlabsEvent {
 /*
 TODO: make sure the connection is only active when there are nodes active
 maybe by adding a method to check when a node is closed?
+TODO: do whatever is needed to make use of identity properties to password protect
 */
 module.exports = function(RED: Red) {
   function StreamlabsWebSocketClient(
