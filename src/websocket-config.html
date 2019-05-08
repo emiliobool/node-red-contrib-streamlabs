@@ -1,9 +1,9 @@
 <script type="text/javascript">
-  RED.nodes.registerType('streamlabs-config', {
+  RED.nodes.registerType('streamlabs-websocket-config', {
     category: 'config',
     defaults: {
       name: { value: '' },
-      access_token: { value: '' },
+      socket_token: { value: '' },
     },
     label: function() {
       return this.name || this.id
@@ -11,13 +11,13 @@
   })
 </script>
 <style></style>
-<script type="text/html" data-template-name="streamlabs-config">
+<script type="text/html" data-template-name="streamlabs-websocket-config">
   <div class="form-row">
       <label for="node-config-input-username"><i class="icon-tag"></i> Configuration Name</label>
       <input type="text" id="node-config-input-name">
   </div>
   <div class="form-row">
-      <label for="node-config-input-token"><i class="icon-tag"></i> Access Token</label>
-      <input type="text" id="node-config-input-access_token">
+      <label for="node-config-input-token"><i class="icon-tag"></i> Socket Token</label>
+      <input type="text" id="node-config-input-socket_token">
   </div>
 </script>

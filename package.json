@@ -1,49 +1,56 @@
 {
-    "name": "node-red-contrib-streamlabs",
-    "version": "0.1.0",
-    "description": "Streamlabs nodes for node-red",
-    "main": "index.js",
-    "scripts": {
-        "prepare": "npm run build",
-        "prepublishOnly": "rm ./.gitignore",
-        "gulp": "gulp",
-        "watch": "gulp watch",
-        "build": "gulp build",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "node-red": {
-        "nodes": {
-            "streamlabs-config": "lib/config.js",
-            "streamlabs-api": "lib/api.js",
-            "streamlabs-socket": "lib/socket.js"
-        }
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/emiliobool/node-red-contrib-streamlabs.git"
-    },
-    "keywords": [
-        "streamlabs",
-        "node-red"
-    ],
-    "author": "Emilio Bool",
-    "license": "Apache-2.0",
-    "bugs": {
-        "url": "https://github.com/emiliobool/node-red-contrib-streamlabs/issues"
-    },
-    "homepage": "https://github.com/emiliobool/node-red-contrib-streamlabs#readme",
-    "devDependencies": {
-        "@types/node-red": "^0.17.3",
-        "del": "^3.0.0",
-        "gulp": "^4.0.0",
-        "gulp-inject-string": "^1.1.2",
-        "gulp-typescript": "^5.0.0",
-        "node-red-node-test-helper": "^0.1.8",
-        "typescript": "^3.3.3333"
-    },
-    "dependencies": {
-        "@types/socket.io-client": "^1.4.32",
-        "axios": "^0.18.0",
-        "socket.io-client": "^2.2.0"
+  "name": "node-red-contrib-streamlabs",
+  "version": "0.1.0",
+  "description": "Streamlabs nodes for node-red",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "npm run build",
+    "prepublishOnly": "rm ./.gitignore",
+    "gulp": "gulp",
+    "watch": "gulp watch",
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "node-red": {
+    "nodes": {
+      "streamlabs-config": "lib/config.js",
+      "streamlabs-api": "lib/api.js",
+      "streamlabs-socket": "lib/socket.js"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emiliobool/node-red-contrib-streamlabs.git"
+  },
+  "keywords": [
+    "streamlabs",
+    "node-red"
+  ],
+  "author": "Emilio Bool",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/emiliobool/node-red-contrib-streamlabs/issues"
+  },
+  "homepage": "https://github.com/emiliobool/node-red-contrib-streamlabs#readme",
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm"
+    ]
+  },
+  "devDependencies": {
+    "node-red-node-test-helper": "^0.1.8",
+    "@types/node-red": "^0.17.3",
+    "@types/socket.io-client": "^1.4.32"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "socket.io-client": "^2.2.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-inject-string": "^1.1.2",
+    "gulp-typescript": "^5.0.0",
+    "typescript": "^3.3.3333"
+  }
 }
