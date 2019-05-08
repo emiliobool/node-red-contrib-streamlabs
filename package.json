@@ -14,9 +14,10 @@
   },
   "node-red": {
     "nodes": {
-      "streamlabs-config": "lib/config.js",
       "streamlabs-api": "lib/api.js",
-      "streamlabs-socket": "lib/socket.js"
+      "streamlabs-config": "lib/config.js",
+      "streamlabs-websocket": "lib/websocket.js",
+      "streamlabs-websocket-config": "lib/websocket-config.js"
     }
   },
   "repository": {

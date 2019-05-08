@@ -1,0 +1,37 @@
+<script type="text/javascript">
+  RED.nodes.registerType('streamlabs-websocket', {
+    category: 'StreamingTools',
+    color: '#4bad96',
+    defaults: {
+      config: { type: 'streamlabs-websocket-config' },
+      type_filter: { value: '' },
+    },
+    inputs: 0,
+    outputs: 1,
+    icon: 'streamlabs-icon.png',
+    paletteLabel: 'WebSocket',
+    label: function() {
+      return this.type || 'WebSocket'
+    },
+    labelStyle: 'streamlabs_node_label',
+  })
+</script>
+<style>
+  #palette_node_streamlabs-socket {
+    color: #142730;
+  }
+  .streamlabs_node_label {
+    fill: #142730;
+  }
+</style>
+<script type="text/html" data-template-name="streamlabs-websocket">
+  <div class="form-row">
+      <label for="node-input-config"><i class="icon-tag"></i> Config</label>
+      <input type="text" id="node-input-config">
+  </div>
+  <div class="form-row">
+        <label for="node-input-type_filter"><i class="icon-tag"></i> Type</label>
+        <input type="text" id="node-input-type_filter">
+  </div>
+</script>
+<script type="text/html" data-help-name="streamlabs-socket"></script>
