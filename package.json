@@ -41,11 +41,11 @@
     ]
   },
   "devDependencies": {
-    "node-red-node-test-helper": "^0.1.8",
-    "@types/node-red": "^0.17.3",
-    "@types/socket.io-client": "^1.4.32"
+    "node-red-node-test-helper": "^0.1.8"
   },
   "dependencies": {
+    "@types/node-red": "^0.17.3",
+    "@types/socket.io-client": "^1.4.32",
     "axios": "^0.18.0",
     "socket.io-client": "^2.2.0",
     "del": "^3.0.0",
