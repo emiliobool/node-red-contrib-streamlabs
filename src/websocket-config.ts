@@ -1,10 +1,10 @@
-import { Red, Node, NodeProperties } from 'node-red'
+import { Red, Node, NodeProperties, NodeStatus } from 'node-red'
 import io from 'socket.io-client'
 
 export interface WebSocketConfigNode extends Node {
   name: string
   socket_token: string
-  socket: SocketIOClient.Socket
+  client: SocketIOClient.Socket
   streamlabels: any
   streamlabelsUnderlying: any
 }
@@ -25,6 +25,44 @@ TODO: make sure the connection is only active when there are nodes active
 maybe by adding a method to check when a node is closed?
 TODO: do whatever is needed to make use of identity properties to password protect
 */
+
+export const connectedStatus: NodeStatus = {
+  fill: 'green',
+  shape: 'dot',
+  text: 'connected',
+}
+export const connectingStatus: NodeStatus = {
+  fill: 'green',
+  shape: 'ring',
+  text: 'connecting...',
+}
+export const disconnectedStatus: NodeStatus = {
+  fill: 'red',
+  shape: 'ring',
+  text: 'disconnected',
+}
+
+export function statusUpdater(node: any, client: any) {
+  const onConnected = () => node.status(connectedStatus)
+  const onConnecting = () => node.status(connectingStatus)
+  const onDisconnected = () => node.status(disconnectedStatus)
+
+  if (client.connected) onConnected()
+  else onDisconnected()
+
+  client.on('connect', onConnected)
+  client.on('reconnect', onConnected)
+  client.on('reconnecting', onConnecting)
+  client.on('disconnect', onDisconnected)
+
+  return function() {
+    client.removeListener('connect', onConnected)
+    client.removeListener('reconnect', onConnected)
+    client.removeListener('reconnecting', onConnecting)
+    client.removeListener('disconnect', onDisconnected)
+  }
+}
+
 module.exports = function(RED: Red) {
   function StreamlabsWebSocketClient(
     this: WebSocketConfigNode,
@@ -36,10 +74,10 @@ module.exports = function(RED: Red) {
     this.streamlabels = {}
     this.streamlabelsUnderlying = {}
 
-    this.socket = io(
+    this.client = io(
       `https://sockets.streamlabs.com/?token=${this.socket_token}`
     )
-    this.socket.on('event', (event: StreamlabsEvent) => {
+    this.client.on('event', (event: StreamlabsEvent) => {
       if (event.type === 'streamlabels') {
         this.streamlabels = event.message
         this.context().global.set(`${this.id}:streamlabels`, event.message)
@@ -52,9 +90,9 @@ module.exports = function(RED: Red) {
     })
 
     this.on('close', done => {
-      if (this.socket) {
-        this.socket.removeAllListeners()
-        this.socket.close()
+      if (this.client) {
+        this.client.removeAllListeners()
+        this.client.close()
       }
       done()
     })

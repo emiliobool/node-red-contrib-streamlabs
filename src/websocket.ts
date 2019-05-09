@@ -1,5 +1,5 @@
 import { Red, NodeProperties, Node } from 'node-red'
-import { WebSocketConfigNode } from './websocket-config'
+import { WebSocketConfigNode, statusUpdater } from './websocket-config'
 import { inspect } from 'util'
 
 export interface StreamlabsWebSocketConfig extends NodeProperties {
@@ -11,7 +11,11 @@ module.exports = function(RED: Red) {
   function StreamlabsWebSocket(this: Node, config: StreamlabsWebSocketConfig) {
     RED.nodes.createNode(this, config)
     const configNode = RED.nodes.getNode(config.config) as WebSocketConfigNode
-    configNode.socket.on('event', (payload: any) => {
+    const client = configNode.client
+
+    const clearStatusHandlers = statusUpdater(this, client)
+
+    const onEvent = (payload: any): void => {
       if (!config.type_filter || payload.type === config.type_filter) {
         try {
           if (payload.type === 'streamlabels') {
@@ -24,7 +28,15 @@ module.exports = function(RED: Red) {
           this.error(inspect(payload))
         }
       }
+    }
+    client.on('event', onEvent)
+
+    this.on('close', done => {
+      client.removeListener('event', onEvent)
+      clearStatusHandlers()
+      done()
     })
   }
+
   RED.nodes.registerType('streamlabs-websocket', StreamlabsWebSocket)
 }
