@@ -1,4 +1,4 @@
-import { Red, Node, NodeProperties, NodeStatus } from 'node-red'
+import { Red, Node, NodeProperties } from 'node-red'
 import io from 'socket.io-client'
 
 export interface WebSocketConfigNode extends Node {
@@ -25,43 +25,6 @@ TODO: make sure the connection is only active when there are nodes active
 maybe by adding a method to check when a node is closed?
 TODO: do whatever is needed to make use of identity properties to password protect
 */
-
-export const connectedStatus: NodeStatus = {
-  fill: 'green',
-  shape: 'dot',
-  text: 'connected',
-}
-export const connectingStatus: NodeStatus = {
-  fill: 'green',
-  shape: 'ring',
-  text: 'connecting...',
-}
-export const disconnectedStatus: NodeStatus = {
-  fill: 'red',
-  shape: 'ring',
-  text: 'disconnected',
-}
-
-export function statusUpdater(node: any, client: any) {
-  const onConnected = () => node.status(connectedStatus)
-  const onConnecting = () => node.status(connectingStatus)
-  const onDisconnected = () => node.status(disconnectedStatus)
-
-  if (client.connected) onConnected()
-  else onDisconnected()
-
-  client.on('connect', onConnected)
-  client.on('reconnect', onConnected)
-  client.on('reconnecting', onConnecting)
-  client.on('disconnect', onDisconnected)
-
-  return function() {
-    client.removeListener('connect', onConnected)
-    client.removeListener('reconnect', onConnected)
-    client.removeListener('reconnecting', onConnecting)
-    client.removeListener('disconnect', onDisconnected)
-  }
-}
 
 module.exports = function(RED: Red) {
   function StreamlabsWebSocketClient(

@@ -1,6 +1,7 @@
 import { Red, NodeProperties, Node } from 'node-red'
-import { WebSocketConfigNode, statusUpdater } from './websocket-config'
+import { WebSocketConfigNode } from './websocket-config'
 import { inspect } from 'util'
+import statusUpdater from './statusUpdater'
 
 export interface StreamlabsWebSocketConfig extends NodeProperties {
   config: string
@@ -13,7 +14,7 @@ module.exports = function(RED: Red) {
     const configNode = RED.nodes.getNode(config.config) as WebSocketConfigNode
     const client = configNode.client
 
-    const clearStatusHandlers = statusUpdater(this, client)
+    const clearStatusUpdater = statusUpdater(this, client)
 
     const onEvent = (payload: any): void => {
       if (!config.type_filter || payload.type === config.type_filter) {
@@ -33,7 +34,7 @@ module.exports = function(RED: Red) {
 
     this.on('close', done => {
       client.removeListener('event', onEvent)
-      clearStatusHandlers()
+      clearStatusUpdater()
       done()
     })
   }
